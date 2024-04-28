@@ -41,7 +41,7 @@ googleController.handleRedirect = async (req, res) => {
     });
 
     res.cookie('jwtToken', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 24 * 60 * 60 * 1000 })
-    res.redirect('http://localhost:5173/signin');
+    res.redirect('https://frontend-ob4rx13x5-neelkanths-projects.vercel.app/signin');
 };
 
 function createUniqueUsername(email) {
