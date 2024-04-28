@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <div class="container">
+        <h1>File Upload</h1>
+        <form id='form' enctype="multipart/form-data">
+            <div class="input-group">
+                <label for='name'>Your name</label>
+                <input name='name' id='name' placeholder="Enter your name" />
+            </div>
+            <div class="input-group">
+                <label for='files'>Select files</label>
+                <input id='file' type="file" accept=".pdf,.doc,.docx">
+            </div>
+            <button class="submit-btn" type='submit'>Upload</button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById("form");
+
+        form.addEventListener("submit", submitForm);
+
+        function submitForm(e) {
+            e.preventDefault();
+            const name = document.getElementById("name");
+            const fileInput = document.getElementById("file");
+            const file = fileInput.files[0];
+            const fileName = name.value;
+            const formData = new FormData();
+            formData.append("name", fileName);
+            formData.append("file", file);
+            fetch("http://localhost:3000/upload/file", {
+                method: 'POST',
+                body: formData,
+            })
+            .then((res) => console.log(res))
+            .catch((err) => console.error("Error occurred", err));
+        }
+        function getFileExtension(filename) {
+           return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+        }
+    </script>
+</body>
+</html>
