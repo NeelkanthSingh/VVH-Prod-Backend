@@ -41,7 +41,7 @@ googleController.handleRedirect = async (req, res) => {
     });
 
     res.cookie('jwtToken', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 24 * 60 * 60 * 1000 })
-    res.redirect('https://vvh-prod-frontend-45twlzui1-neelkanths-projects.vercel.app/signin');
+    res.redirect('https://versionvaulthub.com/signin');
 };
 
 function createUniqueUsername(email) {
