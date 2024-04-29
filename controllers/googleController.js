@@ -40,7 +40,7 @@ googleController.handleRedirect = async (req, res) => {
         expiresIn: '1d'
     });
 
-    res.cookie('jwtToken', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 24 * 60 * 60 * 1000 })
+    res.cookie('jwtToken', refreshToken, { httpOnly: true, sameSite: 'lax', secure: true, maxAge: 24 * 60 * 60 * 1000 })
     res.redirect('https://versionvaulthub.com/signin');
 };
 
