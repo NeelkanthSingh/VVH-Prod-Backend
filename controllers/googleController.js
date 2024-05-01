@@ -41,7 +41,7 @@ googleController.handleRedirect = async (req, res) => {
     });
 
     res.cookie('jwtToken', refreshToken, { domain: 'versionvaulthub.com', httpOnly: true, sameSite: 'lax', secure: true, maxAge: 24 * 60 * 60 * 1000 })
-    res.redirect('https://versionvaulthub.com/signin');
+    res.redirect('https://www.versionvaulthub.com/signin');
 };
 
 function createUniqueUsername(email) {
