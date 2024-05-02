@@ -22,7 +22,7 @@ authController.checkUser = async (req, res) => {
 
 authController.logoutUser = async (req, res) => {
     console.log("Logging out user");
-    res.clearCookie('jwtToken', { domain: 'versionvaulthub.com', httpOnly: true, sameSite: 'lax', secure: true});
+    res.clearCookie('jwtToken', { domain: 'versionvaulthub.com', httpOnly: true, sameSite: 'strict', secure: true});
     return res.sendStatus(204);
 };
 

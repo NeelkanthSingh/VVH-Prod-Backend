@@ -8,13 +8,24 @@ const fs = require("fs")
 
 let uploadController = {};
 
+let applicationTypeMap = {};
+applicationTypeMap["pdf"] = "application/pdf";
+applicationTypeMap["doc"] = "application/msword";
+applicationTypeMap["docx"] = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+applicationTypeMap["png"] = "image/png";
+applicationTypeMap["svg"] = "image/svg+xml";
+applicationTypeMap["gif"] = "image/gif";
+applicationTypeMap["jpg"] = "image/jpeg";
+applicationTypeMap["jpeg"] = "image/jpeg";
+
 uploadController.fileUpload = async (req, res) => {
 
   const email = req.email
   const docName = req.body.name
   const pdfName = req.body.name
+  const extension = req.body.extension
 
-  uploadToGoogleDrive(email, pdfName, docName)
+  uploadToGoogleDrive(email, pdfName, docName, extension)
 
     await uploadedDocumentStatus.create({
         email: email,
@@ -25,7 +36,7 @@ uploadController.fileUpload = async (req, res) => {
   res.json({ message: "Successfully uploaded files" });
 }
 
-async function uploadToGoogleDrive(email, pdfName, docName){
+async function uploadToGoogleDrive(email, pdfName, docName, extension){
      
     const token = await oAuthResponse.findOne({
         email: email
@@ -73,17 +84,17 @@ async function uploadToGoogleDrive(email, pdfName, docName){
             const pdfMetadata = {
                 name: pdfName+`_${files.length + 1}`,
                 parents: [folderId],
-                mimeType: 'application/pdf',
+                mimeType: applicationTypeMap[extension],
             };
 
             // Store the pdf file in the google drive.
-            const pdfPath = path.join(__dirname, `./../../uploads/${pdfName}.pdf`);
+            const pdfPath = path.join(__dirname, `./../../uploads/${pdfName}.${extension}}`);
             const pdfFile = fs.createReadStream(pdfPath);
 
             drive.files.create({
                 resource: pdfMetadata,
                 media: {
-                    mimeType: 'application/pdf',
+                    mimeType: applicationTypeMap[extension],
                     body: pdfFile,
                 }
             }, async (err, file) => {
@@ -148,17 +159,17 @@ async function uploadToGoogleDrive(email, pdfName, docName){
             const pdfMetadata = {
                 name: pdfName+"_1",
                 parents: [folderId],
-                mimeType: 'application/pdf',
+                mimeType: applicationTypeMap[extension],
             };
     
             // Store the pdf file in the google drive.
-            const pdfPath = path.join(__dirname, `./../../uploads/${pdfName}.pdf`);
+            const pdfPath = path.join(__dirname, `./../../uploads/${pdfName}.${extension}`);
             const pdfFile = fs.createReadStream(pdfPath);
     
             drive.files.create({
                 resource: pdfMetadata,
                 media: {
-                    mimeType: 'application/pdf',
+                    mimeType: applicationTypeMap[extension],
                     body: pdfFile,
                 }
             }, async (err, file) => {

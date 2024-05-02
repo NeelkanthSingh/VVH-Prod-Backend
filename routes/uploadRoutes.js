@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
         // Constructing the filename with desired name and extension
         const filename = req.body.name; // Assuming the name is sent in the request body
         const extension = file.originalname.split('.').pop(); // Extracting the original file extension
+        req.body.extension = extension; // Storing the extension in the request body
         cb(null, `${filename}.${extension}`); // Set the filename with desired extension
     }
 });
