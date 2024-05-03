@@ -1,4 +1,4 @@
-const { user, document } = require("../db");
+const { document, uploadedDocumentStatus } = require("../db");
 const documentController = {};
 
 documentController.getAllDocuments = async (req, res) => {
@@ -26,6 +26,22 @@ try {
                 message: "Internal server error",
             });
 } 
+};
+
+documentController.getUploadStatus = async (req, res) => {
+    try {
+        const docs = await uploadedDocumentStatus.find({email: req.email});
+        const status = docs.length > 0 ? true : false;
+        return res.status(200).json({
+            status
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Internal server error",
+        });
+    }
+
 };
 
 module.exports = { documentController };

@@ -27,20 +27,12 @@ const OAuthResponseSchema = mongoose.Schema({
     expiry_date: Date
 })
 
-const uploadedDocumentStatusSchema = mongoose.Schema({
-    email: String,
-    doc_name: String,
-    created_at: Date
-});
-
 const user = mongoose.model('Users', userSchema)
 const oAuthResponse = mongoose.model('OAuthResponse', OAuthResponseSchema)
 const document = mongoose.model('Documents', documentSchema)
-const uploadedDocumentStatus = mongoose.model('UploadedDocumentStatus', uploadedDocumentStatusSchema)
 
 module.exports = {
     user,
     oAuthResponse,
-    document,
-    uploadedDocumentStatus
+    document
 }
