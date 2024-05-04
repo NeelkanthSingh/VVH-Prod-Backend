@@ -11,6 +11,7 @@ try {
                 last_updated: doc.last_updated,
                 version: doc.version,
                 total_visits: doc.total_visits,
+                doc_url: doc.doc_url,
             };
         });
 
