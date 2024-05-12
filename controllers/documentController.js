@@ -34,17 +34,6 @@ try {
 documentController.getDocument = async (req, res) => {
     let username;
     let doc_name;
-    try {
-        const token = req.headers.authorization = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, new TextEncoder().encode(INTERNAL_JWT_SECRET));
-        username = decoded.username;
-        doc_name = decoded.doc;
-    } catch (err) {
-        console.error(err);
-        return res.status(401).json({
-            message: "Unauthorized access",
-        });
-    }
 
     try {
         const userDetail = await user.findOne({ username: username });
