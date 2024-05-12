@@ -32,8 +32,8 @@ try {
 };
 
 documentController.getDocument = async (req, res) => {
-    const username = req.params.username;
-    const doc_name = req.params.doc_name;
+    const username = req.query.username;
+    const doc_name = req.query.doc_name;
 
     try {
         const userDetail = await user.findOne({ username: username });
