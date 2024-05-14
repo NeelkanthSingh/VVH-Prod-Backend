@@ -1,4 +1,2 @@
-const allowedOrigins = [
-    'https://www.versionvaulthub.com',
-];
+const allowedOrigins = ['*'];
 module.exports = allowedOrigins;
