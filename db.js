@@ -27,12 +27,19 @@ const OAuthResponseSchema = mongoose.Schema({
     expiry_date: Date
 })
 
+const smsSchema = mongoose.Schema({
+    phone_number: String,
+    message: String,
+})
+
 const user = mongoose.model('Users', userSchema)
 const oAuthResponse = mongoose.model('OAuthResponse', OAuthResponseSchema)
 const document = mongoose.model('Documents', documentSchema)
+const sms = mongoose.model('SMS', smsSchema)
 
 module.exports = {
     user,
     oAuthResponse,
-    document
+    document,
+    sms
 }

@@ -1,14 +1,27 @@
 const smsController = {};
+const { sms } = require("../db");
 
-smsController.readMssgs = (req, res) => {
+smsController.readMssgs = async (req, res) => {
     console.log("Reading messages");
     const mssg = req.body.sms_message;
     const phone = req.body.sender_phone_number;
 
-    console.log("Message: ", mssg);
-    console.log("Phone: ", phone);
+    await sms.create({
+        phone_number: phone,
+        message: mssg
+    });
+    
     res.json({
-        message: "Read messages"
+        message: "Stored message"
+    })
+}
+
+smsController.displayMssgs = async (req, res) => {
+    console.log("Displaying messages");
+    const allMssgs = await sms.find({});
+    res.json({
+        message: "All messages",
+        data: allMssgs
     })
 }
 
